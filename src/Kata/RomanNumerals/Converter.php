@@ -62,7 +62,7 @@ class Converter implements RomanNumeralGenerator
     }
 
     /**
-     * Parse a string to a decimal
+     * Parse a Roman numeral to a decimal
      *
      * @param $string
      * @return string
