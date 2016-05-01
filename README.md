@@ -24,7 +24,7 @@ To run the application:
     php -S localhost:8080
     ```
 
-4. Navigate to http://localhost:8080/ to view application
+4. Navigate to [http://localhost:8080/] to view application
 
 ##Running Tests
 
