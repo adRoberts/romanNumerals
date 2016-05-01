@@ -15,7 +15,7 @@ if ($_POST) {
     $data = array();
 
     try {
-        switch($option) {
+        switch ($option) {
             case "dec-to-num":
                 $result = $converter->generate($value);
                 break;
@@ -24,7 +24,7 @@ if ($_POST) {
                 break;
         }
         $status = true;
-    } catch(\InvalidArgumentException $e) {
+    } catch (\InvalidArgumentException $e) {
         $result = $e->getMessage();
         $status = false;
     }

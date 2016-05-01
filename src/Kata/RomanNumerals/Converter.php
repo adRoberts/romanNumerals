@@ -45,11 +45,11 @@ class Converter implements RomanNumeralGenerator
      */
     public function generate($integer)
     {
-        if($this->validateDecimal($integer)) {
+        if ($this->validateDecimal($integer)) {
             $roman = '';
             $remainder = $integer;
 
-            foreach ( $this->roman_numerals as $numeral => $decimal ) {
+            foreach ($this->roman_numerals as $numeral => $decimal) {
                 while ($remainder >= $decimal) {
                     $roman .= $numeral;
                     $remainder -= $decimal;
@@ -70,11 +70,11 @@ class Converter implements RomanNumeralGenerator
      */
     public function parse($string)
     {
-        if($this->validateNumeral($string)) {
+        if ($this->validateNumeral($string)) {
             $number = '';
             $romanNumeral = $string;
 
-            foreach ( $this->roman_numerals as $numeral => $decimal ) {
+            foreach ($this->roman_numerals as $numeral => $decimal) {
                 while (strpos($romanNumeral, $numeral) === 0) {
                     $number += $decimal;
                     $romanNumeral = substr($romanNumeral, strlen($numeral));
@@ -95,15 +95,15 @@ class Converter implements RomanNumeralGenerator
      */
     public function validateDecimal($integer)
     {
-        if(!is_numeric($integer)) {
+        if (!is_numeric($integer)) {
             throw new \InvalidArgumentException('Please enter a valid integer value');
         }
-        if($integer < $this->minValue) {
-            throw new \InvalidArgumentException('Value must be greater than '. $this->minValue);
+        if ($integer < $this->minValue) {
+            throw new \InvalidArgumentException('Value must be greater than ' . $this->minValue);
         }
 
-        if($integer > $this->maxValue) {
-            throw new \InvalidArgumentException('Value must be less than '. $this->maxValue);
+        if ($integer > $this->maxValue) {
+            throw new \InvalidArgumentException('Value must be less than ' . $this->maxValue);
         }
 
         return true;
