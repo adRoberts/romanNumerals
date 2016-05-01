@@ -1,7 +1,5 @@
 <?php
 
-
-
 include_once 'src/Kata/RomanNumerals/RomanNumeralGenerator.php';
 include_once 'src/Kata/RomanNumerals/Converter.php';
 
@@ -18,14 +16,31 @@ if ($_POST) {
 
     switch($option) {
         case "dec-to-num":
-            $result = $converter->generate($value);
+            try {
+                $result = $converter->generate($value);
+                $status = true;
+            } catch(\Exception $e) {
+                $result = $e->getMessage();
+                $status = false;
+            }
             break;
         case "num-to-dec":
-            $result = $converter->parse($value);
+            try {
+                $result = $converter->parse($value);
+                $status = true;
+            } catch(\Exception $e) {
+                $result = $e->getMessage();
+                $status = false;
+            }
             break;
     }
 
-    echo json_encode($result);
-    die();
+    $data = [
+        'response' => $result,
+        'success' => $status
+    ];
+
+    echo json_encode($data);
+
 }
 

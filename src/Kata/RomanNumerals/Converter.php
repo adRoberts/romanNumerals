@@ -1,6 +1,7 @@
 <?php
 
 namespace Kata\RomanNumerals;
+
 /**
  * Class used to convert decimals to numerals and vice versa
  *
@@ -9,9 +10,7 @@ namespace Kata\RomanNumerals;
  */
 class Converter implements RomanNumeralGenerator
 {
-    /**
-     * @var array $roman_numerals
-     */
+    /** @var array $roman_numerals */
     private $roman_numerals = array(
         'M' => 1000,
         'CM' => 900,
@@ -27,26 +26,39 @@ class Converter implements RomanNumeralGenerator
         'IV' => 4,
         'I' => 1);
 
+    /** @var int $maxValue */
+    private $maxValue = 3999;
+
+    /** @var int $minValue */
+    private $minValue = 1;
+
+    /** @var string $pattern */
+    private $pattern = "/^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/";
+
 
     /**
      * Generate a roman numeral from a decimal
      *
      * @param $integer
      * @return string
+     * @throws \Exception
      */
     public function generate($integer)
     {
-        $roman = '';
-        $remainder = $integer;
+        if($this->validateDecimal($integer)) {
+            $roman = '';
+            $remainder = $integer;
 
-        foreach ( $this->roman_numerals as $numeral => $decimal ) {
-            while ($remainder >= $decimal) {
-                $roman .= $numeral;
-                $remainder -= $decimal;
+            foreach ( $this->roman_numerals as $numeral => $decimal ) {
+                while ($remainder >= $decimal) {
+                    $roman .= $numeral;
+                    $remainder -= $decimal;
+                }
             }
+
+            return $roman;
         }
 
-        return $roman;
     }
 
     /**
@@ -54,19 +66,64 @@ class Converter implements RomanNumeralGenerator
      *
      * @param $string
      * @return string
+     * @throws \Exception
      */
     public function parse($string)
     {
-        $number = '';
-        $romanNumeral = $string;
+        if($this->validateNumeral($string)) {
+            $number = '';
+            $romanNumeral = $string;
 
-        foreach ( $this->roman_numerals as $numeral => $decimal ) {
-            while (strpos($romanNumeral, $numeral) === 0) {
-                $number += $decimal;
-                $romanNumeral = substr($romanNumeral, strlen($numeral));
+            foreach ( $this->roman_numerals as $numeral => $decimal ) {
+                while (strpos($romanNumeral, $numeral) === 0) {
+                    $number += $decimal;
+                    $romanNumeral = substr($romanNumeral, strlen($numeral));
+                }
             }
+
+            return $number;
         }
 
-        return $number;
+    }
+
+    /**
+     * Validate decimal values
+     *
+     * @param $integer
+     * @return bool
+     * @throws \Exception
+     */
+    private function validateDecimal($integer)
+    {
+        if(!is_numeric($integer)) {
+            throw new \Exception('Please enter a valid integer value');
+        }
+        if($integer < $this->minValue) {
+            throw new \Exception('Value must be greater than '. $this->minValue);
+        }
+
+        if($integer > $this->maxValue) {
+            throw new \Exception('Value must be less than '. $this->maxValue);
+        }
+
+        return true;
+
+    }
+
+    /**
+     * Validate numeral values
+     *
+     * @param $numeral
+     * @return bool
+     * @throws \Exception
+     */
+    private function validateNumeral($numeral)
+    {
+        if (!preg_match($this->pattern, $numeral)) {
+            throw new \Exception('Please enter a valid Roman numeral');
+        }
+
+        return true;
+
     }
 }

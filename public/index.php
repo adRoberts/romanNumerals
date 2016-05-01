@@ -32,8 +32,8 @@
             <div class="panel panel-converter">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-xs-6">
-                            <a href="#" class="active" id="decimal-link">Decimal To Numeral</a>
+                        <div class="col-xs-12">
+                            <h3>Roman Numeral Converter <small>By Adam Roberts</small></h3>
                         </div>
                     </div>
                     <hr>
@@ -42,12 +42,15 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <form id="converter" method="post" role="form" style="display: block;">
+                                <div class="alert alert-danger" id="error" style="display: none">
+
+                                </div>
                                 <div class="form-group">
-                                    <div class="radio-inline">
-                                        <label><input type="radio" name="convertOption" value="dec-to-num" checked >Decimal to Numeral</label>
+                                    <div class="radio">
+                                        <label><input type="radio" name="convertOption" value="dec-to-num" checked >Decimal to Roman Numeral</label>
                                     </div>
-                                    <div class="radio-inline">
-                                        <label><input type="radio" name="convertOption" value="num-to-dec">Numeral to Decimal</label>
+                                    <div class="radio">
+                                        <label><input type="radio" name="convertOption" value="num-to-dec">Roman Numeral to Decimal</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
