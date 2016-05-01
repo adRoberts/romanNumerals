@@ -14,26 +14,21 @@ if ($_POST) {
 
     $data = array();
 
-    switch($option) {
-        case "dec-to-num":
-            try {
+    try {
+        switch($option) {
+            case "dec-to-num":
                 $result = $converter->generate($value);
-                $status = true;
-            } catch(\Exception $e) {
-                $result = $e->getMessage();
-                $status = false;
-            }
-            break;
-        case "num-to-dec":
-            try {
+                break;
+            case "num-to-dec":
                 $result = $converter->parse($value);
-                $status = true;
-            } catch(\Exception $e) {
-                $result = $e->getMessage();
-                $status = false;
-            }
-            break;
+                break;
+        }
+        $status = true;
+    } catch(\InvalidArgumentException $e) {
+        $result = $e->getMessage();
+        $status = false;
     }
+
 
     $data = [
         'response' => $result,

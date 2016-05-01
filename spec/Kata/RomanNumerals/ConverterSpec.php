@@ -12,11 +12,6 @@ class ConverterSpec extends ObjectBehavior
         $this->shouldHaveType('Kata\RomanNumerals\Converter');
     }
 
-    function it_generates_zero_to_an_empty_string()
-    {
-        $this->generate(0)->shouldReturn('');
-    }
-
     function it_generates_numbers_to_single_numerals()
     {
         $this->generate(1)->shouldReturn('I');
@@ -67,5 +62,44 @@ class ConverterSpec extends ObjectBehavior
         $this->parse('CD')->shouldReturn(400);
         $this->parse('CM')->shouldReturn(900);
         $this->parse('MMMCMXCIX')->shouldReturn(3999);
+    }
+
+    function it_validates_valid_decimal_numbers()
+    {
+        $this->validateDecimal(1)->shouldReturn(true);
+        $this->validateDecimal(5)->shouldReturn(true);
+        $this->validateDecimal(10)->shouldReturn(true);
+        $this->validateDecimal(50)->shouldReturn(true);
+        $this->validateDecimal(100)->shouldReturn(true);
+        $this->validateDecimal(500)->shouldReturn(true);
+        $this->validateDecimal(1000)->shouldReturn(true);
+    }
+
+    function it_validates_invalid_decimal_numbers()
+    {
+        $this->shouldThrow('\InvalidArgumentException')->during('validateDecimal', array(-1));
+        $this->shouldThrow('\InvalidArgumentException')->during('validateDecimal', array(4000));
+        $this->shouldThrow('\InvalidArgumentException')->during('validateDecimal', array('a test string'));
+    }
+
+    function it_validates_valid_roman_numerals()
+    {
+        $this->validateNumeral('I')->shouldReturn(true);
+        $this->validateNumeral('V')->shouldReturn(true);
+        $this->validateNumeral('M')->shouldReturn(true);
+        $this->validateNumeral('II')->shouldReturn(true);
+        $this->validateNumeral('IX')->shouldReturn(true);
+        $this->validateNumeral('XX')->shouldReturn(true);
+        $this->validateNumeral('XXX')->shouldReturn(true);
+        $this->validateNumeral('CD')->shouldReturn(true);
+        $this->validateNumeral('CM')->shouldReturn(true);
+        $this->validateNumeral('MMMCMXCIX')->shouldReturn(true);
+    }
+
+    function it_validates_invalid_roman_numerals()
+    {
+        $this->shouldThrow('\InvalidArgumentException')->during('validateNumeral', array('F'));
+        $this->shouldThrow('\InvalidArgumentException')->during('validateNumeral', array('a test string'));
+        $this->shouldThrow('\InvalidArgumentException')->during('validateNumeral', array(12345));
     }
 }

@@ -93,17 +93,17 @@ class Converter implements RomanNumeralGenerator
      * @return bool
      * @throws \Exception
      */
-    private function validateDecimal($integer)
+    public function validateDecimal($integer)
     {
         if(!is_numeric($integer)) {
-            throw new \Exception('Please enter a valid integer value');
+            throw new \InvalidArgumentException('Please enter a valid integer value');
         }
         if($integer < $this->minValue) {
-            throw new \Exception('Value must be greater than '. $this->minValue);
+            throw new \InvalidArgumentException('Value must be greater than '. $this->minValue);
         }
 
         if($integer > $this->maxValue) {
-            throw new \Exception('Value must be less than '. $this->maxValue);
+            throw new \InvalidArgumentException('Value must be less than '. $this->maxValue);
         }
 
         return true;
@@ -117,10 +117,10 @@ class Converter implements RomanNumeralGenerator
      * @return bool
      * @throws \Exception
      */
-    private function validateNumeral($numeral)
+    public function validateNumeral($numeral)
     {
         if (!preg_match($this->pattern, $numeral)) {
-            throw new \Exception('Please enter a valid Roman numeral');
+            throw new \InvalidArgumentException('Please enter a valid Roman numeral');
         }
 
         return true;

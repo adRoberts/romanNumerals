@@ -1,25 +1,36 @@
 $(document).ready(function(){
-    $("#error").hide();
-    $("#error").html = '';
+    hideErrors();
     $("#result").val('');
     $("#convert").click(function(e){
         e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '../main.php',
-            dataType: "json",
-            data: $('#converter').serialize(),
-            success: function (data) {
-                if(data.success == true) {
-                    $("#error").hide();
-                    $("#error").html('');
-                    $("#result").val(data.response);
-                } else {
-                    $("#error").show();
-                    $("#error").html(data.response);
-                    $("#result").val('');
-                }
-            }
-        });
+        submitForm($('#converter').serialize());
     });
 });
+
+function submitForm(formData){
+    $.ajax({
+        type: 'POST',
+        url: '../main.php',
+        dataType: "json",
+        data: formData,
+        success: function (data) {
+            if(data.success == true) {
+                hideErrors();
+                $("#result").val(data.response);
+            } else {
+                showErrors(data.response);
+                $("#result").val('');
+            }
+        }
+    });
+}
+
+function showErrors(errorMessage){
+    $("#error").show();
+    $("#error").html(errorMessage);
+}
+
+function hideErrors(){
+    $("#error").hide();
+    $("#error").html('');
+}
