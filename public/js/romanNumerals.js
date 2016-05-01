@@ -10,7 +10,7 @@ $(document).ready(function(){
 function submitForm(formData){
     $.ajax({
         type: 'POST',
-        url: '../main.php',
+        url: 'main.php',
         dataType: "json",
         data: formData,
         success: function (data) {

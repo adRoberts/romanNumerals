@@ -13,7 +13,7 @@
 
 
     <!-- project specific css -->
-    <link href = "css/romanNumerals.css" rel = "stylesheet">
+    <link href = "public/css/romanNumerals.css" rel = "stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -83,7 +83,7 @@
 <script src = "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 <!-- Include project specific js files -->
-<script src = "js/romanNumerals.js"></script>
+<script src = "public/js/romanNumerals.js"></script>
 
 </body>
 </html>
