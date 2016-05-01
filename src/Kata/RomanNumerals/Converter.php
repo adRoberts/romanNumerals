@@ -1,9 +1,17 @@
 <?php
 
 namespace Kata\RomanNumerals;
-
+/**
+ * Class used to convert decimals to numerals and vice versa
+ *
+ * Class Converter
+ * @package Kata\RomanNumerals
+ */
 class Converter implements RomanNumeralGenerator
 {
+    /**
+     * @var array $roman_numerals
+     */
     private $roman_numerals = array(
         'M' => 1000,
         'CM' => 900,
@@ -20,6 +28,12 @@ class Converter implements RomanNumeralGenerator
         'I' => 1);
 
 
+    /**
+     * Generate a roman numeral from a decimal
+     *
+     * @param $integer
+     * @return string
+     */
     public function generate($integer)
     {
         $roman = '';
@@ -35,18 +49,20 @@ class Converter implements RomanNumeralGenerator
         return $roman;
     }
 
+    /**
+     * Parse a string to a decimal
+     *
+     * @param $string
+     * @return string
+     */
     public function parse($string)
     {
         $number = '';
         $romanNumeral = $string;
 
         foreach ( $this->roman_numerals as $numeral => $decimal ) {
-
-            //while the roman numeral value appears at the start of the supplied string
             while (strpos($romanNumeral, $numeral) === 0) {
-                //add the associated integer value to the result
                 $number += $decimal;
-                //remove the successfully converted numeral from the supplied string
                 $romanNumeral = substr($romanNumeral, strlen($numeral));
             }
         }
