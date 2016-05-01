@@ -98,6 +98,7 @@ class Converter implements RomanNumeralGenerator
         if (!is_numeric($integer)) {
             throw new \InvalidArgumentException('Please enter a valid integer value');
         }
+
         if ($integer < $this->minValue) {
             throw new \InvalidArgumentException('Value must be greater than ' . $this->minValue);
         }
