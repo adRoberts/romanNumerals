@@ -18,7 +18,7 @@ To run the application:
     composer install
     ```
 
-3. Running the following command can start a local server to view application:
+3. Running the following command within the main project directory can start a local web server to view application:
 
     ```
     php -S localhost:8080
