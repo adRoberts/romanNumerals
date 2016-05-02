@@ -11,7 +11,7 @@ namespace Kata\RomanNumerals;
 class Converter implements RomanNumeralGenerator
 {
     /** @var array $roman_numerals */
-    private $roman_numerals = array(
+    private $romanNumerals = array(
         'M' => 1000,
         'CM' => 900,
         'D' => 500,
@@ -47,12 +47,11 @@ class Converter implements RomanNumeralGenerator
     {
         if ($this->validateDecimal($integer)) {
             $roman = '';
-            $remainder = $integer;
 
-            foreach ($this->roman_numerals as $numeral => $decimal) {
-                while ($remainder >= $decimal) {
+            foreach ($this->romanNumerals as $numeral => $decimal) {
+                while ($integer >= $decimal) {
                     $roman .= $numeral;
-                    $remainder -= $decimal;
+                    $integer -= $decimal;
                 }
             }
 
@@ -64,17 +63,16 @@ class Converter implements RomanNumeralGenerator
     /**
      * Parse a Roman numeral to a decimal
      *
-     * @param $string
+     * @param $romanNumeral
      * @return string
      * @throws \Exception
      */
-    public function parse($string)
+    public function parse($romanNumeral)
     {
-        if ($this->validateNumeral($string)) {
+        if ($this->validateNumeral($romanNumeral)) {
             $number = '';
-            $romanNumeral = $string;
 
-            foreach ($this->roman_numerals as $numeral => $decimal) {
+            foreach ($this->romanNumerals as $numeral => $decimal) {
                 while (strpos($romanNumeral, $numeral) === 0) {
                     $number += $decimal;
                     $romanNumeral = substr($romanNumeral, strlen($numeral));
@@ -100,11 +98,11 @@ class Converter implements RomanNumeralGenerator
         }
 
         if ($integer < $this->minValue) {
-            throw new \InvalidArgumentException('Value must be greater than ' . $this->minValue);
+            throw new \InvalidArgumentException('Value must be greater than or equal to ' . $this->minValue);
         }
 
         if ($integer > $this->maxValue) {
-            throw new \InvalidArgumentException('Value must be less than ' . $this->maxValue);
+            throw new \InvalidArgumentException('Value must be less than or equal to ' . $this->maxValue);
         }
 
         return true;

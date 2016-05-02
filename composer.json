@@ -1,4 +1,12 @@
 {
+  "name": "Kata/RomanNumerals",
+  "description": "A simple application to convert decimals to Roman numerals and vice versa",
+  "authors": [
+    {
+      "name": "Adam Roberts",
+      "email": "ajroberts10@googlemail.com"
+    }
+  ],
   "require-dev": {
     "phpspec/phpspec": "~2.0"
   },
